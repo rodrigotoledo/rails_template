@@ -30,6 +30,8 @@ gem "bootstrap_form", "~> 5.0"
 # Replace 'string' with "string" in the Gemfile so RuboCop is happy
 gsub_file "Gemfile", /'([^']*)'/, '"\1"'
 
+file '.ruby-gemset', "#{@app_name}"
+
 # Install gems
 run "bundle install"
 
@@ -99,6 +101,8 @@ file 'spec/support/shoulda.rb', <<-CODE
     end
   end
 CODE
+
+
 
 append_file ".gitignore" do <<-'GIT'
 /tmp
