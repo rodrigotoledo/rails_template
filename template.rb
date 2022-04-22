@@ -20,6 +20,7 @@ gem_group :development, :test do
 end
 
 # environment
+gem "image_processing", "~> 1.2"
 gem "dotenv-rails"
 gem "bootstrap", "~> 5.0"
 gem "bootstrap_form", "~> 5.0"
@@ -98,6 +99,12 @@ file 'spec/support/shoulda.rb', <<-CODE
     end
   end
 CODE
+
+append_file ".gitignore" do <<-'GIT'
+/tmp
+/coverage
+GIT
+end
 
 generate(:controller, "welcome index")
 # rails_command "generate controller welcome index"
