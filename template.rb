@@ -25,6 +25,11 @@ gem "dotenv-rails"
 gem "bootstrap", "~> 5.0"
 gem "bootstrap_form", "~> 5.0"
 
+answer_devise = ask("Use devise (y or n): ")
+if answer_devise
+  gem "devise"
+end
+
 
 # DO THIS AFTER ALL GEMS ARE SET
 # Replace 'string' with "string" in the Gemfile so RuboCop is happy
@@ -34,6 +39,31 @@ file '.ruby-gemset', "#{@app_name}"
 
 # Install gems
 run "bundle install"
+
+if answer_devise
+  generate "devise:install"
+  generate "devise User"
+  generate "devise:views"
+
+  inject_into_file "app/controllers/application_controller.rb", before: "end\n" do <<-'RUBY'
+    before_action :authenticate_user!
+  RUBY
+  end
+
+  inject_into_file "config/environments/development.rb", before: "end\n" do <<-'RUBY'
+    config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  RUBY
+  end
+
+  # production_url = ask("What is the production url: ")
+  # inject_into_file "config/environments/production.rb", before: "end\n" do <<-'RUBY'
+  #   config.action_mailer.default_url_options = { host: %{production_url} }
+  # RUBY
+  # end
+
+  rails_command("db:migrate")
+  
+end
 
 # Setup RSpec and test related config
 generate "rspec:install"
