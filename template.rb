@@ -54,15 +54,8 @@ if answer_devise
     config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   RUBY
   end
-
-  # production_url = ask("What is the production url: ")
-  # inject_into_file "config/environments/production.rb", before: "end\n" do <<-'RUBY'
-  #   config.action_mailer.default_url_options = { host: %{production_url} }
-  # RUBY
-  # end
-
   rails_command("db:migrate")
-  
+
 end
 
 # Setup RSpec and test related config
@@ -131,8 +124,6 @@ file 'spec/support/shoulda.rb', <<-CODE
     end
   end
 CODE
-
-
 
 append_file ".gitignore" do <<-'GIT'
 /tmp
