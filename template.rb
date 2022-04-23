@@ -27,7 +27,7 @@ gem "bootstrap", "~> 5.0"
 gem "bootstrap_form", "~> 5.0"
 
 answer_devise = ask("Use devise (y or n): ")
-if answer_devise
+if answer_devise == 'y'
   gem "devise"
 end
 
@@ -41,7 +41,7 @@ file '.ruby-gemset', "#{@app_name}"
 # Install gems
 run "bundle install"
 
-if answer_devise
+if answer_devise == 'y'
   generate "devise:install"
   generate "devise User"
   generate "devise:views"
