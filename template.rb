@@ -8,11 +8,11 @@ gem_group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
-  gem "rspec-rails"
   gem "rails-controller-testing"
 end
 
 gem_group :development, :test do
+  gem "rspec-rails"
   gem "factory_bot_rails"
   gem "simplecov", require: false
   gem "rubocop-rspec" # rspec rules for rubocop
@@ -54,14 +54,12 @@ if answer_devise
     config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   RUBY
   end
-  rails_command("db:migrate")
 
+  rails_command("db:migrate")
 end
 
 # Setup RSpec and test related config
 generate "rspec:install"
-
-run "mkdir spec/factories"
 run "mkdir spec/support"
 
 inject_into_file "spec/spec_helper.rb", before: "RSpec.configure do |config|\n" do <<-'RUBY'
@@ -87,9 +85,6 @@ file 'app/assets/stylesheets/application_bootstrap.scss', <<-CODE
   @import "bootstrap";
   @import "rails_bootstrap_forms";
 CODE
-
-# add RuboCop config
-# create_file ".rubocop.yml"
 
 # adds x86_64-linux platform in the Gemfile.lock
 run "bundle lock --add-platform x86_64-linux"
