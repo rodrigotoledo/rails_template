@@ -3,7 +3,6 @@ gem_group :development do
   gem "guard-rspec", require: false
 end
 
-# spec and linter related
 gem_group :test do
   gem 'shoulda-matchers', '~> 5.0'
   gem "capybara"
@@ -16,6 +15,7 @@ gem_group :development, :test do
   gem "rspec-rails"
   gem "factory_bot_rails"
   gem "simplecov", require: false
+  gem "faker"
   gem "rubocop-rspec" # rspec rules for rubocop
   gem "rubocop-rails" # rails rules for rubocop
 end
@@ -66,6 +66,7 @@ RUBY
 end
 
 inject_into_file "spec/rails_helper.rb", before: "require 'rspec/rails'\n" do <<-'RUBY'
+  require "faker"
   require "capybara/rails"
   Capybara.server = :puma, { Silent: true }
   Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
