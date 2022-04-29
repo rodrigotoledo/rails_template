@@ -16,10 +16,10 @@ end
 @env = RVM::Environment.new(rvm_ruby)
 ENV['RVM_RUBY'] = rvm_ruby
 
-# puts "Creating gemset #{app_name} in #{rvm_ruby}"
-# @env.gemset_create(app_name)
-# puts "Now using gemset #{app_name}"
-# @env = RVM::Environment.new("#{rvm_ruby}@#{app_name}")
+puts "Creating gemset #{app_name} in #{rvm_ruby}"
+@env.gemset_create(app_name)
+puts "Now using gemset #{app_name}"
+@env = RVM::Environment.new("#{rvm_ruby}@#{app_name}")
 
 
 puts "Installing bundler gem."
@@ -29,4 +29,4 @@ puts "Successfully installed rails" if system("gem install rails")
 
 template_file = File.join(File.expand_path(File.dirname(__FILE__)), 'template.rb')
 # puts "rvm #{rvm_ruby}@#{app_name} exec rails new #{app_name} -JT -m #{template_file}"
-system("rails new #{app_name} -JT -m #{template_file}")
+("rvm #{rvm_ruby}@#{app_name} exec rails new #{app_name} -JT -m #{template_file}")

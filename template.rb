@@ -33,7 +33,7 @@ gem "devise"
 gsub_file "Gemfile", /'([^']*)'/, '"\1"'
 
 # rvm gemset
-# rvm_ruby = '3.0.3'
+rvm_ruby = '3.0.3'
 file '.ruby-gemset', "#{@app_name}"
 # require 'rvm'
 # @env = RVM::Environment.new(rvm_ruby)
@@ -42,7 +42,6 @@ file '.ruby-gemset', "#{@app_name}"
 # system("rvm use #{rvm_ruby}@#{app_name}")
 # system("rvm use #{rvm_ruby}@#{app_name}")
 # require 'rvm'
-# system("rvm use --create --rvmrc #{rvm_ruby}@#{@app_name} --create")
 
 # Install gems
 run "bundle install"
