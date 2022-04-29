@@ -34,7 +34,7 @@ gsub_file "Gemfile", /'([^']*)'/, '"\1"'
 
 # rvm gemset
 file '.ruby-gemset', "#{@app_name}"
-run "rvm use 3.0.3@#{@app_name} --create"
+system("rvm use 3.0.3@#{@app_name} --create")
 
 # Install gems
 run "bundle install"
