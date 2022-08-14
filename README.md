@@ -7,7 +7,7 @@ Este projeto serve apenas de ajuda para que novas aplicações sejam criadas com
 ## Requisitos
 
 - rvm (desejável)
-- rails 6+
+- rails 7.x
 - conhecimentos com TDD
 
 ### Comandos
@@ -24,7 +24,7 @@ Após é necessário instalar o rails é claro, sem ele nada feito certo?!
 
 e finalmente criar o projeto seguindo o template com o comando abaixo
 
-`rails new name_of_your_project -T -m=template.rb`
+`rails new nome_do_projeto --css tailwind -T -m=template.rb`
 
 ## Comandos do projeto
 
