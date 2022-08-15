@@ -16,6 +16,7 @@ gem_group :development, :test do
   gem "factory_bot_rails"
   gem "simplecov", require: false
   gem "faker"
+  gem "rufo"
   gem "rubocop-rspec" # rspec rules for rubocop
   gem "rubocop-rails" # rails rules for rubocop
 end
@@ -52,6 +53,7 @@ RUBY
 end
 
 rails_command("db:migrate")
+rails_command("active_storage:install")
 
 # Setup RSpec and test related config
 generate "rspec:install"
@@ -78,6 +80,22 @@ create_file ".env"
 
 # adds x86_64-linux platform in the Gemfile.lock
 run "bundle lock --add-platform x86_64-linux"
+
+file '.editoconfig', <<-CODE
+  root = true
+
+  [*]
+
+  # Change these settings to your own preference
+  indent_style = space
+  indent_size = 2
+  quote_type = single
+
+  # We recommend you to keep these unchanged
+  end_of_line = lf
+  charset = utf-8
+  trim_trailing_whitespace = true
+CODE
 
 file '.rubocop.yml', <<-CODE
   require:
