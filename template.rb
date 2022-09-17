@@ -25,6 +25,7 @@ end
 gem "image_processing", "~> 1.2"
 gem "dotenv-rails"
 gem "devise"
+gem "rails_heroicon"
 
 # DO THIS AFTER ALL GEMS ARE SET
 # Replace 'string' with "string" in the Gemfile so RuboCop is happy
@@ -146,9 +147,129 @@ end
 
 rails_command "db:seed"
 
-inject_into_file 'app/views/layouts/application.html.erb', before: '</head>' do <<~EOF
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple-v1.css">
-  EOF
+remove_file "app/views/devise/sessions/new.html.erb"
+remove_file "app/views/layouts/application.html.erb"
+remove_file "app/views/layouts/devise.html.erb"
+
+create_file "app/views/devise/sessions/new.html.erb"
+create_file "app/views/layouts/application.html.erb"
+create_file "app/views/layouts/devise.html.erb"
+
+inject_into_file "app/views/devise/sessions/new.html.erb" do <<-'ERB'
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="flex flex-row items-center justify-center lg:justify-start">
+    <p class="text-lg mb-0 mr-4">Login with credentials</p>
+  </div>
+  <!-- Email input -->
+  <div class="mb-6">
+    <%= f.email_field :email, autofocus: true, placeholder: "Email address", autocomplete: "email", class: "form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
+  </div>
+
+  <!-- Password input -->
+  <div class="mb-6">
+    <%= f.password_field :password, placeholder: "Password", autocomplete: "current-password", class: "form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
+  </div>
+  <% if devise_mapping.rememberable? %>
+  <div class="flex justify-between items-center mb-6">
+    <div class="form-group form-check">
+      <%= f.check_box :remember_me, class: "form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" %>
+      <%= f.label :remember_me, class: "form-check-label inline-block text-gray-800" %>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="text-center lg:text-left">
+    <button
+      type="submit"
+      class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+    >
+      Login
+    </button>
+  </div>
+<% end %>
+  ERB
+end
+
+
+inject_into_file "app/views/layouts/application.html.erb" do <<-'ERB'
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Application</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+  </head>
+
+  <body>
+    <div class="bg-gray-50 h-screen overflow-y-scroll hide-scrollbar">
+      <div class="shadow-sm border-b bg-white sticky top-0 z-50 pt-4 pb-4">
+        <div class='flex justify-between max-w-6xl mx-5 lg:mx-auto'>
+          <!-- left content-->
+          <div class="relative items-center hidden lg:inline-grid cursor-pointer"><%= link_to "Project Name", root_path %></div>
+          <div class="relative items-center lg:hidden w-10 flex-shrink-0 cursor-pointer"><%= link_to "Project Name", root_path %></div>
+
+          <!-- right content with icons -->
+          <div class="flex items-center justify-end space-x-4">
+            <%= link_to heroicon("home", variant: "solid", class: "hidden h-6 md:inline-flex cursor-pointer hover:scale-125 transition-all duration-150 ease-out"), root_path %>
+            <%= button_to heroicon("arrow-right-on-rectangle", variant: "solid", class: "hidden h-6 md:inline-flex cursor-pointer hover:scale-125 transition-all duration-150 ease-out"), destroy_user_session_path, method: :delete, alt: "profile picture", class: "h-10 rounded-full cursor-pointer" %>
+          </div>
+        </div>
+      </div>
+      <div class="container mx-auto">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>
+  ERB
+end
+
+inject_into_file "app/views/layouts/devise.html.erb" do <<-'ERB'
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Application</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+  </head>
+
+  <body>
+    <section class="h-screen">
+      <div class="px-6 h-full text-gray-800">
+        <div
+          class="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6"
+        >
+          <div
+            class="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0"
+          >
+            <img
+              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+              class="w-full"
+              alt="Sample image"
+            />
+          </div>
+          <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
+          <%= yield %>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
+
+  ERB
 end
 
 # clear logs
