@@ -12,11 +12,11 @@ Este projeto serve apenas de ajuda para que novas aplicações sejam criadas com
 
 ### Comandos
 
-Para iniciar o projeto é sempre bom caso o mesmo utilize rvm, o nome do projeto e gemset sejam as mesmas. Então inicialmente uma boa prática seria rodar:
+Para iniciar o projeto é sempre bom utilizar o versionamento de do ruby. E para isto aconselho usar [rvm](https://rvm.io/). Então inicialmente uma boa prática seria rodar:
 
-`rvm use 3.0.3@name_of_project --create`
+`rvm install 3.0.3`
 
-com isto a versão 3.0.3 do ruby será criada com a gemset `name_of_project`
+com isto a versão 3.0.3 do ruby será instalada
 
 Após é necessário instalar o rails é claro, sem ele nada feito certo?!
 
@@ -29,6 +29,8 @@ e finalmente criar o projeto seguindo o template com o comando abaixo
 ## Comandos do projeto
 
 - Para navegar no projeto entre pela pasta e execute
+- `cd name_of_project`
+- `bundle`
 - `rails s`
 - Logo em seguida acesse em  `http://localhost:3000`
 - Para executar testes basta executar

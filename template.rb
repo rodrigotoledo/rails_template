@@ -26,14 +26,9 @@ gem "image_processing", "~> 1.2"
 gem "dotenv-rails"
 gem "devise"
 
-
 # DO THIS AFTER ALL GEMS ARE SET
 # Replace 'string' with "string" in the Gemfile so RuboCop is happy
 gsub_file "Gemfile", /'([^']*)'/, '"\1"'
-
-# rvm gemset
-rvm_ruby = '3.0.3'
-file '.ruby-gemset', "#{@app_name}"
 
 # Install gems
 run "bundle install"
@@ -81,7 +76,7 @@ create_file ".env"
 # adds x86_64-linux platform in the Gemfile.lock
 run "bundle lock --add-platform x86_64-linux"
 
-file '.editoconfig', <<-CODE
+file '.editorconfig', <<-CODE
   root = true
 
   [*]
@@ -137,6 +132,27 @@ end
 generate(:controller, "welcome index")
 # rails_command "generate controller welcome index"
 route "root to: 'welcome#index'"
+
+# run migration
+rails_command "db:migrate"
+
+# setup seeds with default user
+inject_into_file "db/seeds.rb" do <<-'RUBY'
+  require "faker"
+  User.create!(email: Faker::Internet.email, password: 'aassdd123', password_confirmation: 'aassdd123')
+  User.create!(email: "admin@test.com", password: 'aassdd123', password_confirmation: 'aassdd123')
+  RUBY
+end
+
+rails_command "db:seed"
+
+inject_into_file 'app/views/layouts/application.html.erb', before: '</head>' do <<~EOF
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple-v1.css">
+  EOF
+end
+
+# clear logs
+rails_command "log:clear"
 
 # Fix Rubocop Offences
 run "rubocop -A"
