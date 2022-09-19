@@ -19,6 +19,7 @@ gem_group :development, :test do
   gem "rufo"
   gem "rubocop-rspec" # rspec rules for rubocop
   gem "rubocop-rails" # rails rules for rubocop
+  gem 'byebug'
 end
 
 # environment
@@ -50,6 +51,9 @@ end
 
 rails_command("db:migrate")
 rails_command("active_storage:install")
+rails_command("importmap:install")
+rails_command("action_text:install")
+rails_command("db:migrate")
 
 # Setup RSpec and test related config
 generate "rspec:install"
@@ -221,7 +225,7 @@ inject_into_file "app/views/layouts/application.html.erb" do <<-'ERB'
           </div>
         </div>
       </div>
-      <div class="container mx-auto">
+      <div class="container mx-auto p-10">
         <%= yield %>
       </div>
     </div>
