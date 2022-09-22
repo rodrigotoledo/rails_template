@@ -150,6 +150,8 @@ inject_into_file "db/seeds.rb" do <<-'RUBY'
 end
 
 rails_command "db:seed"
+rails_command "importmap:install"
+rails_command "stimulus:install"
 
 remove_file "app/views/devise/sessions/new.html.erb"
 remove_file "app/views/layouts/application.html.erb"
