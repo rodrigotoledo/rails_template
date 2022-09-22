@@ -23,7 +23,6 @@ gem_group :development, :test do
 end
 
 # environment
-gem "image_processing", "~> 1.2"
 gem "dotenv-rails"
 gem "devise"
 gem "rails_heroicon"
@@ -53,6 +52,7 @@ rails_command("db:migrate")
 rails_command("active_storage:install")
 rails_command("importmap:install")
 rails_command("action_text:install")
+rails_command("stimulus:install")
 rails_command("db:migrate")
 
 # Setup RSpec and test related config
@@ -135,8 +135,8 @@ GIT
 end
 
 generate(:controller, "welcome index")
-# rails_command "generate controller welcome index"
 route "root to: 'welcome#index'"
+
 
 # run migration
 rails_command "db:migrate"
@@ -150,8 +150,6 @@ inject_into_file "db/seeds.rb" do <<-'RUBY'
 end
 
 rails_command "db:seed"
-rails_command "importmap:install"
-rails_command "stimulus:install"
 
 remove_file "app/views/devise/sessions/new.html.erb"
 remove_file "app/views/layouts/application.html.erb"
@@ -282,4 +280,5 @@ end
 rails_command "log:clear"
 
 # Fix Rubocop Offences
+run "rm -rf spec/views"
 run "rubocop -A"
