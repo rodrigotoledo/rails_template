@@ -26,6 +26,8 @@ end
 gem "dotenv-rails"
 gem "devise"
 gem "rails_heroicon"
+gem "redis"
+gem "pg"
 
 # DO THIS AFTER ALL GEMS ARE SET
 # Replace 'string' with "string" in the Gemfile so RuboCop is happy
