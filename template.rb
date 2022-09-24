@@ -63,16 +63,16 @@ generate "rspec:install"
 run "mkdir spec/support"
 
 inject_into_file "spec/spec_helper.rb", before: "RSpec.configure do |config|\n" do <<-'RUBY'
-  require "simplecov"
-  SimpleCov.start
+require "simplecov"
+SimpleCov.start
 RUBY
 end
 
 inject_into_file "spec/rails_helper.rb", before: "require 'rspec/rails'\n" do <<-'RUBY'
-  require "faker"
-  require "capybara/rails"
-  Capybara.server = :puma, { Silent: true }
-  Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+require "faker"
+require "capybara/rails"
+Capybara.server = :puma, { Silent: true }
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 RUBY
 end
 
@@ -85,50 +85,50 @@ create_file ".env"
 run "bundle lock --add-platform x86_64-linux"
 
 file '.editorconfig', <<-CODE
-  root = true
+root = true
 
-  [*]
+[*]
 
-  # Change these settings to your own preference
-  indent_style = space
-  indent_size = 2
-  quote_type = single
+# Change these settings to your own preference
+indent_style = space
+indent_size = 2
+quote_type = single
 
-  # We recommend you to keep these unchanged
-  end_of_line = lf
-  charset = utf-8
-  trim_trailing_whitespace = true
+# We recommend you to keep these unchanged
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
 CODE
 
 file '.rubocop.yml', <<-CODE
-  require:
-    - rubocop-rails
-    - rubocop-rspec
+require:
+  - rubocop-rails
+  - rubocop-rspec
 
-  AllCops:
-    NewCops: enable
+AllCops:
+  NewCops: enable
 
-  Rails:
-    Enabled: true
-  RSpec:
-    Enabled: true
-  RSpec/MultipleExpectations:
-    Enabled: false
+Rails:
+  Enabled: true
+RSpec:
+  Enabled: true
+RSpec/MultipleExpectations:
+  Enabled: false
 CODE
 
 file 'spec/support/factory_bot.rb', <<-CODE
-  RSpec.configure do |config|
-    config.include FactoryBot::Syntax::Methods
-  end
+RSpec.configure do |config|
+  config.include FactoryBot::Syntax::Methods
+end
 CODE
 
 file 'spec/support/shoulda.rb', <<-CODE
-  Shoulda::Matchers.configure do |config|
-    config.integrate do |with|
-      with.test_framework :rspec
-      with.library :rails
-    end
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
   end
+end
 CODE
 
 append_file ".gitignore" do <<-'GIT'
