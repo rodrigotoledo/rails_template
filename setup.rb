@@ -5,13 +5,9 @@ require 'rvm'
 rvm_ruby = ARGV[0]
 app_name = ARGV[1]
 
-unless rvm_ruby
-  puts "\n You need to specify a which rvm rubie to use."
-end
+puts "\n You need to specify a which rvm rubie to use." unless rvm_ruby
 
-unless app_name
-  puts "\n You need to name your app."
-end
+puts "\n You need to name your app." unless app_name
 
 @env = RVM::Environment.new(rvm_ruby)
 ENV['RVM_RUBY'] = rvm_ruby
@@ -21,12 +17,11 @@ puts "Creating gemset #{app_name} in #{rvm_ruby}"
 puts "Now using gemset #{app_name}"
 @env = RVM::Environment.new("#{rvm_ruby}@#{app_name}")
 
+puts 'Installing bundler gem.'
+puts 'Successfully installed bundler' if system('gem install bundler')
+puts 'Installing rails gem.'
+puts 'Successfully installed rails' if system('gem install rails')
 
-puts "Installing bundler gem."
-puts "Successfully installed bundler" if system("gem install bundler")
-puts "Installing rails gem."
-puts "Successfully installed rails" if system("gem install rails")
-
-template_file = File.join(File.expand_path(File.dirname(__FILE__)), 'template.rb')
+template_file = File.join(__dir__, 'template.rb')
 # puts "rvm #{rvm_ruby}@#{app_name} exec rails new #{app_name} -JT -m #{template_file}"
-("rvm #{rvm_ruby}@#{app_name} exec rails new #{app_name} -JT -m #{template_file}")
+"rvm #{rvm_ruby}@#{app_name} exec rails new #{app_name} -JT -m #{template_file}"

@@ -14,9 +14,9 @@ Este projeto serve apenas de ajuda para que novas aplicações sejam criadas com
 
 Para iniciar o projeto é sempre bom utilizar o versionamento de do ruby. E para isto aconselho usar [rvm](https://rvm.io/). Então inicialmente uma boa prática seria rodar:
 
-`rvm install 3.0.3`
+`rvm install 3.1.2`
 
-com isto a versão 3.0.3 do ruby será instalada
+com isto a versão 3.1.2 do ruby será instalada
 
 Após é necessário instalar o rails é claro, sem ele nada feito certo?!
 
