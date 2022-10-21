@@ -24,14 +24,28 @@ Após é necessário instalar o rails é claro, sem ele nada feito certo?!
 
 e finalmente criar o projeto seguindo o template com o comando abaixo
 
+com importmap
+
 `rails new name_of_project --css tailwind -T -m=template.rb`
+
+com esbuild
+
+`rails new name_of_project --css tailwind -j esbuild -T -m=template_esbuild.rb`
 
 ## Comandos do projeto
 
 - Para navegar no projeto entre pela pasta e execute
 - `cd name_of_project`
 - `bundle`
+
+com importmap
+
 - `rails s`
+
+com esbuild
+
+- `bind/dev`
+
 - Logo em seguida acesse em  `http://localhost:3000`
 - Para executar testes basta executar
 - `bundle exec guard`
