@@ -223,7 +223,7 @@ inject_into_file 'app/views/layouts/application.html.erb' do
 
       <body>
         <div class="bg-gray-50 h-screen overflow-y-scroll hide-scrollbar">
-          <header class="sticky top-0 z-50 bg-red-white shadow-sm grid grid-cols-3 px-10">
+          <header class="sticky top-0 z-50 bg-white shadow-sm grid grid-cols-3 px-10">
             <!-- left content-->
             <div class="relative flex items-center h-20 my-auto">
               <div class="relative items-center hidden lg:inline-grid cursor-pointer"><%= link_to "Project Name", root_path, class: "text-gray-400" %></div>
