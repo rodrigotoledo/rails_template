@@ -28,6 +28,7 @@ gem 'devise'
 gem 'rails_heroicon'
 gem 'redis'
 gem 'pg'
+gem 'sidekiq'
 
 # DO THIS AFTER ALL GEMS ARE SET
 # Replace 'string' with "string" in the Gemfile so RuboCop is happy
