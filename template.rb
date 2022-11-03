@@ -29,6 +29,7 @@ gem 'rails_heroicon'
 gem 'redis'
 gem 'pg'
 gem 'sidekiq'
+gem 'sidekiq-cron'
 
 # DO THIS AFTER ALL GEMS ARE SET
 # Replace 'string' with "string" in the Gemfile so RuboCop is happy
@@ -260,41 +261,6 @@ inject_into_file 'app/views/layouts/application.html.erb' do
               </div>
             </div>
           </header>
-          <main class="container mx-auto p-10">
-            <%= yield %>
-          </main>
-        </div>
-
-
-        <div class="bg-gray-50 h-screen overflow-y-scroll hide-scrollbar">
-          <div class="shadow-sm border-b bg-white sticky top-0 z-50 pb-2 pt-2">
-            <header class='flex justify-between max-w-6xl mx-5 lg:mx-auto'>
-              <div class="relative items-center hidden lg:inline-grid cursor-pointer"><%= link_to "Project Name", root_path, class: "text-gray-400" %></div>
-              <div class="relative items-center lg:hidden w-10 flex-shrink-0 cursor-pointer"><%= link_to "Project Name", root_path, class: "text-gray-400" %></div>
-
-              <div class="max-w-xs">
-                <div class="border-2 rounded-full my-auto px-6">
-                  <%= turbo_frame_tag search_path do %>
-                    <%= form_with url: search_path, method: :post, class: "flex items-center h-12 justify-between", id: "search_form" do |f| %>
-                      <%= text_field_tag :search, "", placeholder: "Busque aqui", class: "bg-transparent outline-none w-[92%]", data: { controller: "welcome", action: "keyup->welcome#search" } %>
-                      <%= button_tag heroicon("magnifying-glass", variant: "solid", class: "h-8 w-8 text-white bg-blue-400 rounded-full p-2 cursor-pointer hover:scale-110 transition-all duration-150 ease-out") %>
-                    <% end %>
-                  <% end %>
-                </div>
-                <div id="results"></div>
-              </div>
-
-              <div class="flex items-center justify-end space-x-4">
-                <%= link_to heroicon("home", variant: "solid", class: "h-6 hidden md:inline-flex cursor-pointer hover:scale-125 duration-150 ease-out"), root_path %>
-                <% if current_user %>
-                  <%= button_to heroicon("arrow-right-on-rectangle", variant: "solid", class: "h-6 text-gray-400 cursor-pointer hover:scale-125 transition-all duration-150 ease-out"), destroy_user_session_path, method: :delete, alt: "profile picture", class: "h-10 rounded-full cursor-pointer", data: { turbo: "false" } %>
-                <% else %>
-                  <%= link_to heroicon("user-plus", variant: "solid", class: "h-6 text-gray-400 cursor-pointer hover:scale-125 transition-all duration-150 ease-out"), new_user_registration_path, class: "link" %>
-                  <%= link_to heroicon("user-circle", class: "h-6 text-gray-400 cursor-pointer hover:scale-125 transition-all duration-150 ease-out"), new_user_session_path, class: "link" %>
-                <% end %>
-              </div>
-            </header>
-          </div>
           <main class="container mx-auto p-10">
             <%= yield %>
           </main>
