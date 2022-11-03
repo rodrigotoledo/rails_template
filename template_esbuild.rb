@@ -37,6 +37,7 @@ gsub_file 'Gemfile', /'([^']*)'/, '"\1"'
 
 # Install gems
 run 'bundle install'
+run 'bundle binstubs bundler'
 
 generate 'devise:install'
 generate 'devise User'
@@ -55,9 +56,9 @@ inject_into_file 'config/environments/development.rb', before: "end\n" do
   RUBY
 end
 
+rails_command('javascript:install:esbuild')
 rails_command('db:migrate')
 rails_command('active_storage:install')
-rails_command('importmap:install')
 rails_command('turbo:install')
 rails_command('action_text:install')
 rails_command('stimulus:install')
@@ -145,9 +146,8 @@ append_file '.gitignore' do
   GIT
 end
 
-generate(:controller, 'welcome index search')
+generate(:controller, 'welcome index')
 route "root to: 'welcome#index'"
-route "post '/', to: 'welcome#search', as: :search"
 
 # run migration
 rails_command 'db:migrate'
@@ -218,7 +218,7 @@ inject_into_file 'app/views/layouts/application.html.erb' do
         <%= csp_meta_tag %>
 
         <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-        <%= javascript_importmap_tags %>
+        <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
         <script src="https://cdn.tailwindcss.com"></script>
 
       </head>
@@ -233,16 +233,9 @@ inject_into_file 'app/views/layouts/application.html.erb' do
             </div>
 
             <!-- center content with search -->
-            <div class="max-w-xs my-auto">
-              <div class="border-2 rounded-full px-6">
-                <%= turbo_frame_tag search_path do %>
-                  <%= form_with url: search_path, method: :post, class: "flex items-center h-12 justify-between", id: "search_form" do |f| %>
-                    <%= text_field_tag :search, "", placeholder: "Busque aqui", class: "bg-transparent outline-none w-[92%]", data: { controller: "welcome", action: "keyup->welcome#search" } %>
-                    <%= button_tag heroicon("magnifying-glass", variant: "solid", class: "h-8 w-8 text-white bg-blue-400 rounded-full p-2 cursor-pointer hover:scale-110 transition-all duration-150 ease-out") %>
-                  <% end %>
-                <% end %>
-              </div>
-              <div id="results"></div>
+            <div class="flex items-center border-2 rounded-full h-12 my-auto justify-between px-6">
+              <%= text_field_tag :search, "", placeholder: "Busque aqui", class: "bg-transparent outline-none w-[92%]" %>
+              <%= heroicon("magnifying-glass", variant: "solid", class: "h-8 w-8 text-white bg-blue-400 rounded-full p-2 cursor-pointer hover:scale-110 transition-all duration-150 ease-out") %>
             </div>
 
 
@@ -281,7 +274,7 @@ inject_into_file 'app/views/layouts/devise.html.erb' do
         <%= csp_meta_tag %>
 
         <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-        <%= javascript_importmap_tags %>
+        <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
         <script src="https://cdn.tailwindcss.com"></script>
 
       </head>
