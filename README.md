@@ -37,16 +37,9 @@ com esbuild
 - Para navegar no projeto entre pela pasta e execute
 - `cd name_of_project`
 - `bundle`
+- `bin/dev`
 
-com importmap
-
-- `rails s`
-
-com esbuild
-
-- `bind/dev`
-
-- Logo em seguida acesse em  `http://localhost:3000`
+- Logo em seguida acesse em `http://localhost:3000`
 - Para executar testes basta executar
 - `bundle exec guard`
 - e logo em seguida apertar **Enter**, assim todos os testes serão rodados
