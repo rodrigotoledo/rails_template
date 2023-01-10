@@ -235,7 +235,7 @@ inject_into_file 'app/views/layouts/application.html.erb' do
 
             <!-- center content with search -->
             <div class="flex items-center border-2 rounded-full h-12 my-auto justify-between px-6">
-              <%= text_field_tag :search, "", placeholder: "Busque aqui", class: "bg-transparent outline-none w-[92%]" %>
+              <%= text_field_tag :search, "", placeholder: "Busque aqui", class: "bg-transparent outline-none w-[92%] border-0" %>
               <%= heroicon("magnifying-glass", variant: "solid", class: "h-8 w-8 text-white bg-blue-400 rounded-full p-2 cursor-pointer hover:scale-110 transition-all duration-150 ease-out") %>
             </div>
 
