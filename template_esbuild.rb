@@ -63,6 +63,7 @@ rails_command('turbo:install')
 rails_command('action_text:install')
 rails_command('stimulus:install')
 rails_command('db:migrate')
+rails_command('tailwindcss:install')
 
 # Setup RSpec and test related config
 generate 'rspec:install'
