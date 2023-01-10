@@ -237,7 +237,7 @@ inject_into_file 'app/views/layouts/application.html.erb' do
               <div class="border-2 rounded-full px-6">
                 <%= turbo_frame_tag search_path do %>
                   <%= form_with url: search_path, method: :post, class: "flex items-center h-12 justify-between", id: "search_form" do |f| %>
-                    <%= text_field_tag :search, "", placeholder: "Busque aqui", class: "bg-transparent outline-none w-[92%]", data: { controller: "welcome", action: "keyup->welcome#search" } %>
+                    <%= text_field_tag :search, "", placeholder: "Busque aqui", class: "bg-transparent outline-none w-[92%] border-0", data: { controller: "welcome", action: "keyup->welcome#search" } %>
                     <%= button_tag heroicon("magnifying-glass", variant: "solid", class: "h-8 w-8 text-white bg-blue-400 rounded-full p-2 cursor-pointer hover:scale-110 transition-all duration-150 ease-out") %>
                   <% end %>
                 <% end %>
