@@ -1,45 +1,24 @@
-# RToledo Dev - tema para projetos rails
+# RTOLEDO DEV - Theme for Rail Projects
 
-## Um pouco sobre
+## A little about
 
-Este projeto serve apenas de ajuda para que novas aplicações sejam criadas com o básico que deve ter e digamos com qualidade.
+This project only serves as a help for new applications to be created with the basics it should have and say with quality.
 
-## Requisitos
+## Requirements
 
-- rvm (desejável)
+- asdf
 - rails 7.x
-- conhecimentos com TDD
+- TDD
 
-### Comandos
+Create the project following the template with the command below
 
-Para iniciar o projeto é sempre bom utilizar o versionamento de do ruby. E para isto aconselho usar [rvm](https://rvm.io/). Então inicialmente uma boa prática seria rodar:
+with importmap
 
-`rvm install 3.1.2`
+`rails_template/setup application_name='application name'`
 
-com isto a versão 3.1.2 do ruby será instalada
+## Project commands
 
-Após é necessário instalar o rails é claro, sem ele nada feito certo?!
-
-`gem install rails --no-doc`
-
-e finalmente criar o projeto seguindo o template com o comando abaixo
-
-com importmap
-
-`rails new name_of_project --css tailwind -T -m=template.rb`
-
-com esbuild
-
-`rails new name_of_project --css tailwind -j esbuild -T -m=template_esbuild.rb`
-
-## Comandos do projeto
-
-- Para navegar no projeto entre pela pasta e execute
-- `cd name_of_project`
+- To browse the project enter the folder and execute
+- `cd application_name`
 - `bundle`
 - `bin/dev`
-
-- Logo em seguida acesse em `http://localhost:3000`
-- Para executar testes basta executar
-- `bundle exec guard`
-- e logo em seguida apertar **Enter**, assim todos os testes serão rodados
