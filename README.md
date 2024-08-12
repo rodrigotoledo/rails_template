@@ -1,52 +1,48 @@
-# RToledo Dev - tema para projetos rails
+# RTOLEDO DEV - Theme for Rail Projects
 
-## Um pouco sobre
+## A little about
 
-Este projeto serve apenas de ajuda para que novas aplicações sejam criadas com o básico que deve ter e digamos com qualidade.
+This project only serves as a help for new applications to be created with the basics it should have and say with quality.
 
-## Requisitos
+## Requirements
 
-- rvm (desejável)
+- rvm
 - rails 7.x
-- conhecimentos com TDD
+- TDD
 
-### Comandos
+### Commands with RVM
 
-Para iniciar o projeto é sempre bom utilizar o versionamento de do ruby. E para isto aconselho usar [rvm](https://rvm.io/). Então inicialmente uma boa prática seria rodar:
+To start the project it is always good to use Ruby's version.And for this I advise using [RVM] (https://rvm.io/).So initially a good practice would be to run:
 
-`rvm install 3.1.2`
+`rvm install 3.2.1`
 
-com isto a versão 3.1.2 do ruby será instalada
+with this the 3.2.1 version of Ruby will be installed
 
-Após é necessário instalar o rails é claro, sem ele nada feito certo?!
+After it is necessary to install Rails of course, without it did nothing right?!
 
 `gem install rails --no-doc`
 
-e finalmente criar o projeto seguindo o template com o comando abaixo
+and finally create the project following the template with the command below
 
-com importmap
+with importmap
 
-`rails new name_of_project --css tailwind -T -m=template.rb`
+`rails new name_of_project -T -m=template.rb`
 
-com esbuild
+sketchy
 
-`rails new name_of_project --css tailwind -j esbuild -T -m=template_esbuild.rb`
+`rails new name_of_project -j esbuild -T -m=template_esbuild.rb`
 
-## Comandos do projeto
+## Project commands
 
-- Para navegar no projeto entre pela pasta e execute
+- To browse the project enter the folder and execute
 - `cd name_of_project`
 - `bundle`
-
-com importmap
-
-- `rails s`
-
-com esbuild
-
 - `bind/dev`
 
-- Logo em seguida acesse em  `http://localhost:3000`
-- Para executar testes basta executar
+- Soon after  `http://localhost:3000`
+- To perform tests just run
 - `bundle exec guard`
-- e logo em seguida apertar **Enter**, assim todos os testes serão rodados
+- and then press **Enter**, so all tests will be driven
+
+### Commands with Docker and Docker Compose
+
