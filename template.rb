@@ -53,14 +53,14 @@ inject_into_file 'config/environments/development.rb', before: "end\n" do
   config.action_controller.raise_on_missing_callback_actions = true
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.hosts.clear
-  config.hosts << /[a-z0-9-.]+\.ngrok\.io/
+  config.hosts << %r{.+\.ngrok-free.app$}
   config.hosts << /.*\.tunnelmole\.net/
   config.hosts << 'localhost'
   config.action_controller.allow_forgery_protection = false
   RUBY
 end
 
-rails_command('rails tailwindcss:install')
+rails_command('dev:cache')
 rails_command('db:migrate')
 rails_command('active_storage:install')
 rails_command('importmap:install')
@@ -68,8 +68,9 @@ rails_command('turbo:install')
 rails_command('action_text:install')
 rails_command('stimulus:install')
 rails_command('db:migrate')
+generate('rspec:install')
+rails_command('tailwindcss:install')
 rails_command('stimulus_reflex:install')
-rails_command('rspec:install')
 
 # Setup RSpec and test related config
 run 'mkdir spec/support'
@@ -105,21 +106,27 @@ file 'spec/support/shoulda.rb', <<~CODE
   end
 CODE
 
+def source_paths
+  Array(super) +
+    [File.expand_path(File.dirname(__FILE__))]
+end
+
 directory 'rails_app/app', 'app'
 directory 'rails_app/bin', 'bin'
 directory 'rails_app/config', 'config'
 
-copy_file 'rails_app/.dockerconfig', '.dockerconfig'
+copy_file 'rails_app/.dockerignore', '.dockerignore'
 copy_file 'rails_app/.editorconfig', '.editorconfig'
 copy_file 'rails_app/.env', '.env'
 copy_file 'rails_app/.env', '.env.local'
 copy_file 'rails_app/.env', '.env.test'
 copy_file 'rails_app/.gitignore', '.gitignore'
 copy_file 'rails_app/.rubocop.yml', '.rubocop.yml'
-copy_file 'rails_app/.ruby-version', '.ruby-version'
+copy_file 'rails_app/.tool-versions', '.tool-versions'
 copy_file 'rails_app/docker-compose.development.yml', 'docker-compose.development.yml'
 copy_file 'rails_app/Dockerfile.development', 'Dockerfile.development'
 copy_file 'rails_app/Procfile.dev', 'Procfile.dev'
+copy_file 'rails_app/README.md', 'README.md'
 
 def replace_application_name
   file_patterns = [
@@ -145,9 +152,4 @@ replace_application_name
 
 # adds x86_64-linux platform in the Gemfile.lock
 run 'bundle lock --add-platform x86_64-linux'
-# clear logs
-rails_command 'log:clear'
-
-# Fix Rubocop Offences
 run 'rm -rf spec/views'
-run 'rubocop -A'

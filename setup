@@ -14,28 +14,24 @@ format_application_name() {
   echo "${1// /_}" | tr '[:upper:]' '[:lower:]'
 }
 
-app_name=$(extract_value "app_name" "$@")
+application_name=$(extract_value "application_name" "$@")
 
-if [ -z "$app_name" ]; then
-  echo "Argument 'app_name' not provided."
+if [ -z "$application_name" ]; then
+  echo "Argument 'application_name' not provided."
   exit 1
 else
-  formatted_name=$(format_application_name "$app_name")
+  formatted_name=$(format_application_name "$application_name")
   echo "Application Formatted Name: $formatted_name"
 fi
 
-rvm_ruby='3.2.1'
+ruby_version='3.2.1'
 
 if [ -z "$formatted_name" ]; then
   echo "You need to name your app."
   exit 1
 fi
 
-source ~/.rvm/scripts/rvm
-rvm use "$rvm_ruby@$formatted_name" --create
-
-echo "Creating gemset $formatted_name in $rvm_ruby"
-echo "Now using gemset $formatted_name"
+asdf local ruby $ruby_version
 
 echo 'Installing bundler gem.'
 gem install bundler --no-doc && echo 'Successfully installed bundler'
@@ -46,6 +42,6 @@ gem install rails --no-doc && echo 'Successfully installed rails'
 template_file="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/template.rb"
 template_file_escaped=$(printf '%q' "$template_file")
 
-command="bundle exec rails new $formatted_name -T -m $template_file_escaped"
+command="rails new $formatted_name -T -m $template_file_escaped"
 echo "Executing command: $command"
 $command
