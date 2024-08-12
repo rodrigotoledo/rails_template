@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MY_APPLICATION</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'tailwind', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+    <%= javascript_importmap_tags %>
+    <%= action_cable_meta_tag %>
+  </head>
+
+  <body>
+    <nav class="bg-gray-800 p-4 text-white fixed w-full top-0">
+      <div class="container mx-auto flex justify-between items-center">
+        <%= link_to root_path, class: "text-lg font-bold" do %>
+          <i class="fas fa-check-double m-2"></i>
+        <% end %>
+      </div>
+    </nav>
+    <main class="container mx-auto mt-28 px-5">
+      <%= flash_messages %>
+      <%= yield %>
+    </main>
+  </body>
+</html>
