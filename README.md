@@ -14,7 +14,7 @@ Create the project following the template with the command below
 
 with importmap
 
-`rails_template/setup application_name='application name'`
+`rails_template/setup application_name='application_name'`
 
 ## Project commands
 
